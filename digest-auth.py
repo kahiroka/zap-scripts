@@ -63,7 +63,7 @@ def responseReceived(msg, initiator, helper):
     if initiator != 1:
         authn = msg.getResponseHeader().getHeader("WWW-Authenticate")
         if authn != None:
-            m = re.match(r'.*nonce="([\w\d]+)".*', authn)
+            m = re.match(r'.*nonce="([\w\d:]+)".*', authn)
             if m != None:
                 svars.setScriptVar(script, 'nonce', m.group(1))
                 svars.setScriptVar(script, 'nc', '1')
