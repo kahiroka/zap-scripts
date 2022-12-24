@@ -66,6 +66,13 @@ def responseReceived(msg, initiator, helper):
             m = re.match(r'.*nonce="([\w\d:=]+)".*', authn)
             if m != None:
                 svars.setScriptVar(script, 'nonce', m.group(1))
-                svars.setScriptVar(script, 'nc', '1')
+                if True:
+                    svars.setScriptVar(script, 'nc', '1')
+                else: # for special purpose
+                    nc = svars.getScriptVar(script, 'nc')
+                    if nc == None:
+                        svars.setScriptVar(script, 'nc', '2')
+                    else:
+                        svars.setScriptVar(script, 'nc', "{:n}".format(int(nc)+1))
                 cnonce = binascii.b2a_hex(os.urandom(8))
                 svars.setScriptVar(script, 'cnonce', cnonce)
